@@ -1,14 +1,10 @@
-# MatrixRain
+# Matrix Rain Effect
 
 ![Console View](MatrixRain.gif)
 
-# Matrix Rain Effect
-
-This repository demonstrates how to integrate the Matrix Rain effect into your application.
+This repository demonstrates how to integrate the Matrix Rain effect into your console application.
 
 ## Usage Instructions
-
-To integrate the Matrix Rain effect, follow these steps:
 
 1. **Capture the Original Console Output:**  
    Save the original `Console.Out` so you can reference it later if needed.
@@ -19,23 +15,83 @@ To integrate the Matrix Rain effect, follow these steps:
 3. **Redirect Console Output:**  
    Replace the default `Console.Out` with a custom writer (`MatrixRainWriter`) that directs all console output to the Matrix Rain window.
 
-4. **Write to the Console:**  
-   After setup, any output from `Console.WriteLine` will appear within the matrix effect. The console window is also resizable without disrupting the effect.
+4. **Display Content:**  
+   Use `Console.WriteLine` to send text to the matrix effect window. You can also use `_effect.ClearText();` to clear the inside window and remove it from the matrix rain effect.
 
-### Example Code
+## Full Example
+
+Below is a complete example of how to use the Matrix Rain effect in your console application:
 
 ```csharp
-// Capture the original Console.Out before redirection.
-TextWriter originalOut = Console.Out;
+using MatrixRainEffectDemo;
 
-// Create and start the Matrix Rain effect with an initial window size.
-_effect = new MatrixRainEffect(originalOut, maxContentWidth: 51, maxContentHeight: 5);
-_effect.Start();
+class Program
+{
+    private static MatrixRainEffect? _effect;
+    static void Main(string[] args)
+    {
+        // Capture the original Console.Out before redirection.
+        TextWriter originalOut = Console.Out;
 
-// Redirect Console.WriteLine so that its output goes to the text window.
-Console.SetOut(new MatrixRainWriter(_effect));
+        // Create and start the Matrix Rain effect with an initial window size.
+        _effect = new MatrixRainEffect(originalOut, maxContentWidth: 51, maxContentHeight: 5);
+        _effect.Start();
 
-// Everything else after this setup is pretty straight forward.
-Console.WriteLine("Hello World");
+        // Redirect Console.WriteLine so that its output goes to the text window.
+        Console.SetOut(new MatrixRainWriter(_effect));
 
-// The console window is resizable without messing up the Rain Effect.
+        WriteFileContents("BannerText.txt", 51, 5, 0);
+        Thread.Sleep(3000);
+        WriteFileContents("Pitch.txt", 65, 12, 250);
+        Thread.Sleep(3000);
+        WriteFileContents("SciFi.txt", 65, 5, 500);
+        Thread.Sleep(3000);
+
+        // Clear the inside window and remove it from the matrix rain effect.
+        _effect.ClearText();
+        Console.ReadKey();
+
+        Console.Clear();
+    }
+
+    private static void WriteFileContents(string filePath, int width, int height, int lineDelay)
+    {
+        _effect.ClearText();
+        _effect.SetWindowSize(width, height);
+
+        foreach (var line in File.ReadAllLines(@"DemoContent\" + filePath))
+        {
+            Console.WriteLine(line);
+            Thread.Sleep(lineDelay);
+        }
+    }
+}
+```
+
+Here is a much more simplified version of the implementation
+
+```csharp
+using MatrixRainEffectDemo;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Capture the original Console.Out.
+        TextWriter originalOut = Console.Out;
+
+        // Initialize and start the Matrix Rain effect with a simple window size.
+        var effect = new MatrixRainEffect(originalOut, maxContentWidth: 51, maxContentHeight: 5);
+        effect.Start();
+
+        // Redirect Console output to the Matrix Rain effect.
+        Console.SetOut(new MatrixRainWriter(effect));
+
+        // Write "Hello World" to the matrix window.
+        Console.WriteLine("Hello World");
+
+        // Optional: Wait and then clear the matrix window.
+        Thread.Sleep(3000);
+        effect.ClearText();
+    }
+}
