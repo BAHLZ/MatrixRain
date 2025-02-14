@@ -1,0 +1,12 @@
+Introducing MatrixRain—the ultimate free Git project that
+transforms your console applications from dull to dazzling!
+With MatrixRain, your terminal comes alive with mesmerizing,
+cascading code effects that add an exciting visual flair to
+every command line interaction. Tailor your experience with
+customizable inner window sizes, making it as unique as your
+project. Whether you're a seasoned developer or just starting
+out, MatrixRain's ease of use means you can effortlessly
+integrate a touch of futuristic style into your apps.
+Elevate your coding environment and captivate your
+audience—give MatrixRain a try today and turn every keystroke
+into a visual masterpiece!
