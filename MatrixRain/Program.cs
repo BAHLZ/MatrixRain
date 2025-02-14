@@ -1,11 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Threading;
+﻿
 using MatrixRainEffectDemo;
 
 class Program
 {
-    private static MatrixRainEffect _effect;
+    private static MatrixRainEffect? _effect;
     static void Main(string[] args)
     {
         // Capture the original Console.Out before redirection.
