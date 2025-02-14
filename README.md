@@ -1,3 +1,3 @@
 # MatrixRain
 
-![Alt text](matrixrain.gif)
+![Console View](MatrixRain.gif)
